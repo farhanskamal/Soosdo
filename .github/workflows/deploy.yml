@@ -24,14 +24,14 @@ jobs:
           node-version: 18
           cache: 'pnpm'
       
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-      
       - name: Build project
         run: pnpm run build
         env:
           GITHUB_PAGES: true
-      
+        
+      - name: List dist contents (debug)
+        run: ls -la dist/
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
