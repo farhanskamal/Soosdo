@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soodo Code - Visual AI Development</title>
+    <!-- 1. Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Load Google Font 'Inter' -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- 3. Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Custom style for the dotted grid background on the canvas */
+        .canvas-grid {
+            background-color: #fcfcfc;
+            /* A subtle dot grid */
+            background-image: radial-gradient(circle, #00000022 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: 0 0;
+        }
+
+        /* Hide scrollbars for a cleaner look */
+        /* For Webkit browsers */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Simple syntax highlighting for the code block */
+        .code-keyword { color: #c084fc; /* purple-400 */ }
+        .code-string { color: #f8b449; /* orange-400 */ }
+        .code-function { color: #60a5fa; /* blue-400 */ }
+        .code-comment { color: #9ca3af; /* gray-400 */ }
+    </style>
+</head>
+<body class="flex h-screen bg-white text-gray-900 overflow-hidden">
+
+    <!-- =================================================================
+    LEFT SIDEBAR
+    ================================================================== -->
+    <aside class="w-64 flex-shrink-0 bg-white border-r border-gray-200 flex flex-col">
+        <!-- Logo -->
+        <div class="h-16 flex items-center px-4 space-x-2 border-b border-gray-200">
+            <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-lg text-gray-800">
+                S
+            </div>
+            <span class="font-bold text-gray-800">Soodo Code</span>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="flex-1 p-4 space-y-2">
+            <button class="flex items-center w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                <!-- New Board Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                </svg>
+                New Board
+            </button>
+            <button class="flex items-center w-full px-3 py-2 rounded-lg text-gray-700 hover:bg-gray-100">
+                <!-- Search Icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+                Search Board
+            </button>
+            
+            <!-- Boards List -->
+            <div class="pt-6">
+                <h3 class="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Boards</h3>
+                <div class="mt-2 space-y-1">
+                    <a href="#" class="flex items-center w-full px-3 py-2 rounded-lg text-orange-700 bg-orange-100 font-medium border-r-4 border-orange-500">
+                        Login System
+                    </a>
+                    <a href="#" class="flex items-center w-full px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        Movement
+                    </a>
+                    <a href="#" class="flex items-center w-full px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                        Damage Vs. Defense
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- =================================================================
+    MAIN CONTENT AREA (Canvas + Right Sidebar)
+    ================================================================== -->
+    <div class="flex-1 flex flex-row overflow-hidden">
+    
+        <!-- =================================================================
+        CENTER CANVAS
+        ================================================================== -->
+        <main class="flex-1 relative overflow-auto canvas-grid">
+            
+            <!-- This container holds all flowchart nodes. 
+                 Positions are absolute, which is brittle but matches the image.
+                 Using 'rem' units helps with scaling. -->
+            <div class="relative w-full h-full p-8 min-w-[800px] min-h-[600px]">
+
+                <!-- SVG Layer for Arrows -->
+                <svg class="absolute inset-0 w-full h-full" style="z-index: 0;">
+                    <defs>
+                        <!-- Arrowhead definition -->
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="8" refY="3.5" orient="auto" markerUnits="strokeWidth">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+                        </marker>
+                    </defs>
+
+                    <!-- START -> #username -->
+                    <path d="M 13rem 4.5rem H 20rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                    
+                    <!-- #username -> password -->
+                    <path d="M 30rem 9.5rem V 15rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                    
+                    <!-- password -> check both -->
+                    <path d="M 30rem 24.5rem V 31rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+
+                    <!-- check both -> if user is true -->
+                    <path d="M 19rem 36rem V 42rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                    
+                    <!-- if user is true -> Activeness -->
+                    <path d="M 19rem 51.5rem V 57rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+
+                    <!-- Activeness -> (side arrow) -->
+                    <path d="M 28rem 59.5rem H 38rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                    
+                    <!-- if user is true -> Else not Work -->
+                    <path d="M 14.5rem 51.5rem H 8rem V 69rem H 14.5rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+
+                    <!-- Loop back arrow: check both -> START -->
+                    <path d="M 8.5rem 36rem H 4rem V 4.5rem H 5.5rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                    
+                    <!-- Loop back arrow: Else not Work -> check both -->
+                    <path d="M 14.5rem 69rem H 8rem V 36rem H 8.5rem" stroke="#374151" stroke-width="3" fill="none" marker-end="url(#arrowhead)"></path>
+                </svg>
+
+                <!-- Node: START -->
+                <div class="absolute flex items-center justify-center p-4 rounded-xl bg-lime-300 border-2 border-black font-bold text-xl shadow-md"
+                     style="left: 5rem; top: 2rem; width: 8rem; height: 5rem; z-index: 10;">
+                    START
+                </div>
+
+                <!-- Node: #username -->
+                <div class="absolute p-4 rounded-xl bg-yellow-200 border-2 border-black shadow-md"
+                     style="left: 20rem; top: 2rem; width: 20rem; height: 7.5rem; z-index: 10;">
+                    <h3 class="font-bold text-lg">#username is enter that set user var</h3>
+                </div>
+
+                <!-- Node: password -->
+                <div class="absolute p-4 rounded-xl bg-yellow-200 border-2 border-black shadow-md"
+                     style="left: 20rem; top: 15rem; width: 20rem; height: 9.5rem; z-index: 10;">
+                    <h3 class="font-bold text-lg">password is enter set #pass var</h3>
+                </div>
+
+                <!-- Node: check both -->
+                <div class="absolute p-4 rounded-xl bg-yellow-200 border-2 border-black shadow-md"
+                     style="left: 8.5rem; top: 31rem; width: 21rem; height: 9.5rem; z-index: 10;">
+                    <h3 class="font-bold text-lg">check both user and #pass var</h3>
+                </div>
+
+                <!-- Node: if user is true -->
+                <div class="absolute p-4 rounded-xl bg-fuchsia-300 border-2 border-black shadow-md"
+                     style="left: 8.5rem; top: 42rem; width: 21rem; height: 9.5rem; z-index: 10;">
+                    <div class="flex items-start space-x-2">
+                        <!-- Drag handle icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <h3 class="font-bold text-lg">if user is true</h3>
+                    </div>
+                </div>
+
+                <!-- Node: Activeness -->
+                <div class="absolute p-4 rounded-xl bg-fuchsia-300 border-2 border-black shadow-md"
+                     style="left: 8.5rem; top: 57rem; width: 19.5rem; height: 5rem; z-index: 10;">
+                    <div class="flex items-center space-x-2">
+                        <!-- Drag handle icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <h3 class="font-bold text-lg">Activeness is true</h3>
+                    </div>
+                </div>
+
+                <!-- Node: Else not Work -->
+                <div class="absolute p-4 rounded-xl bg-fuchsia-300 border-2 border-black shadow-md"
+                     style="left: 14.5rem; top: 69rem; width: 21rem; height: 5rem; z-index: 10;">
+                    <div class="flex items-center space-x-2">
+                        <!-- Drag handle icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <h3 class="font-bold text-lg">Else not Work</h3>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Floating Toolbar at Bottom -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-full shadow-xl border border-gray-200 flex items-center p-2 space-x-2 z-20">
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Hand Tool">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0 0V6.5m0 0a1.5 1.5 0 013 0m-3 0a1.5 1.5 0 00-3 0m0 0V11m6-4.5v6m0-6a1.5 1.5 0 013 0m-3 0a1.5 1.5 0 00-3 0m0 0V11" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full bg-gray-100" aria-label="Pointer Tool">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z" transform="rotate(135 12 12)" />
+                    </svg>
+                </button>
+                <div class="border-l h-5 border-gray-300"></div>
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Comment">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Arrow">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Shape">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                </button>
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Text">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9.222 3.282A.75.75 0 0110 3.75v12.5a.75.75 0 01-1.5 0V3.75a.75.75 0 01.722-.468zM6 5.25a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5H6.75a.75.75 0 01-.75-.75zm0 10a.75.75 0 01.75-.75h.01a.75.75 0 010 1.5H6.75a.75.75 0 01-.75-.75zm4-.01a.75.75 0 000 1.5h.01a.75.75 0 000-1.5H10zm0-9.98a.75.75 0 000 1.5h.01a.75.75 0 000-1.5H10z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div class="border-l h-5 border-gray-300"></div>
+                <button class="p-2 rounded-full hover:bg-gray-100" aria-label="Settings">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </button>
+            </div>
+            
+        </main>
+        
+        <!-- =================================================================
+        RIGHT SIDEBAR (AI Assistant)
+        ================================================================== -->
+        <aside class="w-96 flex-shrink-0 bg-slate-100 border-l border-gray-200 flex flex-col overflow-y-auto">
+            <!-- Header -->
+            <div class="h-16 flex-shrink-0 flex items-center justify-end px-4 space-x-3 border-b border-gray-200 bg-white">
+                <img class="w-8 h-8 rounded-full" src="https://placehold.co/32x32/E2E8F0/4A5568?text=U" alt="User Avatar">
+                <button class="px-4 py-2 bg-orange-500 text-white rounded-lg text-sm font-medium hover:bg-orange-600 transition">
+                    Share
+                </button>
+            </div>
+            
+            <!-- Assistant Content -->
+            <div class="flex-1 p-4 space-y-4">
+                
+                <!-- To-Do List Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    <h3 class="font-bold text-gray-800 mb-3">What tasks are needed to be done</h3>
+                    <p class="text-sm text-gray-600 mb-4">
+                        Let me know if you want to clarify on something, but if this is exactly what you are planning to develop you can let me know!
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 bg-orange-500 rounded flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-700">User sign in</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 bg-orange-500 rounded flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                            </div>
+                            <span class="text-sm text-gray-700">Check if input is correct/exists</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-5 h-5 bg-gray-200 rounded mr-3"></div>
+                            <span class="text-sm text-gray-700">Give user a way to create an account</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Chat Message -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    <p class="text-sm text-gray-700">
+                        I see you want to work on making a Login System! I will help you with it by first generating a to-do list.
+                    </p>
+                </div>
+                
+                <!-- User Response Button -->
+                <div class="flex justify-end">
+                    <button class="px-5 py-2 bg-yellow-300 text-gray-800 font-medium rounded-full text-sm shadow-sm hover:bg-yellow-400 transition">
+                        Yes
+                    </button>
+                </div>
+
+                <!-- AI Chat Message -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                    <p class="text-sm text-gray-700">
+                        Great let me start generating the foundation of the code!
+                    </p>
+                </div>
+                
+                <!-- Code Block -->
+                <div class="bg-slate-800 rounded-xl shadow-sm p-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm text-gray-400">UserLogin.py</span>
+                        <button id="copy-btn" class="flex items-center space-x-1 text-sm text-gray-400 hover:text-white" onclick="copyCode()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <span id="copy-text">Copy</span>
+                        </button>
+                    </div>
+                    <pre><code id="code-content" class="text-sm text-white">
+<span class="code-comment"># UserLogin.py</span>
+<span class="code-keyword">user</span> = <span class="code-function">str</span>(<span class="code-function">input</span>(<span class="code-string">"Username:"</span>))
+<span class="code-keyword">pass</span> = <span class="code-function">input</span>(<span class="code-string">"Password:"</span>)
+<span class="code-keyword">if</span> user <span class="code-keyword">in</span> data:
+    setActive = <span class="code-keyword">True</span>
+<span class="code-keyword">else</span>:
+</code></pre>
+                </div>
+
+            </div>
+            
+            <!-- Chat Input Footer -->
+            <div class="p-4 bg-white border-t border-gray-200">
+                <div class="relative">
+                    <input type="text" placeholder="Tell us Anything...." class="w-full pl-12 pr-12 py-3 bg-gray-100 rounded-full border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent">
+                    <div class="absolute left-4 top-1/2 -translate-y-1/2">
+                        <!-- Lightbulb Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                    </div>
+                    <button class="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-orange-500 hover:bg-orange-600 transition" aria-label="Send Message">
+                        <!-- Send Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11.69l3.242-3.243a1 1 0 00-1.414-1.414L9 8.282V4.429l1.894-1.876z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+        </aside>
+    </div>
+    
+    <!-- JavaScript for Copy-to-Clipboard functionality -->
+    <script>
+        function copyCode() {
+            const codeText = document.getElementById('code-content').innerText;
+            const copyBtnText = document.getElementById('copy-text');
+            
+            // We use document.execCommand('copy') as navigator.clipboard.writeText()
+            // may be blocked in some iframe environments.
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeText;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                document.execCommand('copy');
+                copyBtnText.innerText = 'Copied!';
+                setTimeout(() => {
+                    copyBtnText.innerText = 'Copy';
+                }, 2000); // Reset text after 2 seconds
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                copyBtnText.innerText = 'Failed';
+                 setTimeout(() => {
+                    copyBtnText.innerText = 'Copy';
+                }, 2000);
+            }
+            
+            document.body.removeChild(tempTextArea);
+        }
+    </script>
+</body>
+</html>
