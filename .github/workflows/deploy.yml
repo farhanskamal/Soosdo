@@ -37,9 +37,9 @@ jobs:
         run: pnpm install
 
       - name: Build for GitHub Pages
-        run: GITHUB_PAGES=true pnpm run build
+        run: GITHUB_PAGES=true vite build
         env:
-          NODE_ENV: production
+            NODE_ENV: production
 
       # ✅ Upload the built site
       - name: Upload artifact
