@@ -12,18 +12,20 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
+
+      # ✅ Install pnpm before using it
+      - name: Install pnpm
+        run: npm install -g pnpm@10
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm@10
 
       - name: Install dependencies
         run: pnpm install
