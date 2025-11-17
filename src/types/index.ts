@@ -42,7 +42,10 @@ export interface Connection {
   fromPoint: { x: number; y: number };
   toPoint: { x: number; y: number };
   label?: string;
-  curvature?: number; // optional curvature factor for path shape
+  curvature?: number; // optional curvature factor for path shape (kept for backwards-compat)
+  // Optional control points for orthogonal/grid-style connectors.
+  // Points are stored in canvas coordinates and will be snapped to a grid when rendered.
+  controlPoints?: { x: number; y: number }[];
 }
 
 export interface Task {

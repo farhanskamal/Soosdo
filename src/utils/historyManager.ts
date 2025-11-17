@@ -445,7 +445,14 @@ export class HistoryManager {
   static recordNodeAdd(node: Node, boardId: string): void {
     try {
       const validatedNode = validateNode(node);
-      this.recordAction('add_node', { ...validatedNode, boardId }, undefined, boardId);
+      // Store nodeId explicitly so undo (which calls deleteNode with data.nodeId)
+      // knows which node to remove. Also keep boardId for future board scoping.
+      this.recordAction(
+        'add_node',
+        { ...validatedNode, nodeId: validatedNode.id, boardId },
+        undefined,
+        boardId
+      );
     } catch (error) {
       console.warn('Error recording node add action:', error);
     }

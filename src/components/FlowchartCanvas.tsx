@@ -60,6 +60,7 @@ const FlowchartCanvas = ({
   const [panStart, setPanStart] = useState({ x: 0, y: 0 });
   const [isDraggingCanvas, setIsDraggingCanvas] = useState(false);
   const [hoveredConnection, setHoveredConnection] = useState<string | null>(null);
+  const [selectedConnectionId, setSelectedConnectionId] = useState<string | null>(null);
   const [editingConnection, setEditingConnection] = useState<{ id: string; text: string } | null>(null);
   const [reconnecting, setReconnecting] = useState<{ connectionId: string; fromNode: string } | null>(null);
   
@@ -71,6 +72,9 @@ const FlowchartCanvas = ({
       if (e.key === 'Delete') {
         if (selectedNode) {
           onNodeDelete(selectedNode);
+        } else if (selectedConnectionId) {
+          onConnectionDelete(selectedConnectionId);
+          setSelectedConnectionId(null);
         } else if (hoveredConnection) {
           onConnectionDelete(hoveredConnection);
           setHoveredConnection(null);
@@ -82,6 +86,7 @@ const FlowchartCanvas = ({
         setIsDraggingCanvas(false);
         onNodeSelect(null);
         setHoveredConnection(null);
+        setSelectedConnectionId(null);
       }
     };
 
@@ -98,7 +103,7 @@ const FlowchartCanvas = ({
       window.removeEventListener('keydown', handleKeyPress);
       canvasRef.current?.removeEventListener('wheel', handleWheel);
     };
-  }, [selectedNode, hoveredConnection, onNodeDelete, onConnectionDelete, canvasState.zoom, onCanvasUpdate]);
+  }, [selectedNode, selectedConnectionId, hoveredConnection, onNodeDelete, onConnectionDelete, canvasState.zoom, onCanvasUpdate]);
 
   const handleMouseDown = (e: React.MouseEvent, nodeId: string) => {
     e.stopPropagation();
@@ -115,8 +120,8 @@ const FlowchartCanvas = ({
   };
 
   const handleCanvasMouseDown = (e: React.MouseEvent) => {
-    // Start panning with middle mouse, space+drag, or move tool
-    if (e.button === 1 || (e.button === 0 && (e.ctrlKey || e.metaKey)) || activeTool === 'move') {
+    // Start panning with middle mouse, RIGHT mouse, space+drag, or move tool
+    if (e.button === 1 || e.button === 2 || (e.button === 0 && (e.ctrlKey || e.metaKey)) || activeTool === 'move') {
       e.preventDefault();
       setIsPanning(true);
       setPanStart({ x: e.clientX - canvasState.panX, y: e.clientY - canvasState.panY });
@@ -124,9 +129,10 @@ const FlowchartCanvas = ({
     }
 
     onNodeSelect(null);
+    setSelectedConnectionId(null);
     
-    // Add node on shift+click or right-click
-    if (e.shiftKey || e.button === 2) {
+    // Add node on Shift+Click
+    if (e.shiftKey) {
       e.preventDefault();
       const rect = canvasRef.current?.getBoundingClientRect();
       if (rect) {
@@ -156,14 +162,18 @@ const FlowchartCanvas = ({
       const newX = ((e.clientX - canvasRect.left - canvasState.panX) / (canvasState.zoom / 100)) - dragOffset.x;
       const newY = ((e.clientY - canvasRect.top - canvasState.panY) / (canvasState.zoom / 100)) - dragOffset.y;
 
-      // Snap to grid for better alignment
-      const gridSize = 10;
-      const snappedX = Math.max(0, Math.round(newX / gridSize) * gridSize);
-      const snappedY = Math.max(0, Math.round(newY / gridSize) * gridSize);
+      // Free movement by default; hold Shift to snap to a 24px grid
+      let nextX = newX;
+      let nextY = newY;
+      if (e.shiftKey) {
+        const gridSize = 24;
+        nextX = Math.round(newX / gridSize) * gridSize;
+        nextY = Math.round(newY / gridSize) * gridSize;
+      }
 
       onNodeUpdate(draggedNode, {
-        x: snappedX,
-        y: snappedY
+        x: Math.max(0, nextX),
+        y: Math.max(0, nextY)
       });
     }
 
@@ -174,7 +184,17 @@ const FlowchartCanvas = ({
         y: (e.clientY - canvasRect.top - canvasState.panY) / (canvasState.zoom / 100)
       });
     }
-  }, [isPanning, panStart, draggedNode, dragOffset, canvasState, onCanvasUpdate, onNodeUpdate, connecting, activeTool]);
+  }, [
+    isPanning,
+    panStart,
+    draggedNode,
+    dragOffset,
+    canvasState,
+    onCanvasUpdate,
+    onNodeUpdate,
+    connecting,
+    activeTool
+  ]);
 
   const handleMouseUp = useCallback(() => {
     if (draggedNode && dragStartPos) {
@@ -229,8 +249,13 @@ const FlowchartCanvas = ({
   };
 
   const handleNodeMouseDown = (nodeId: string, e: React.MouseEvent) => {
-    // If right-click or meta/ctrl, start connection
-    if (e.button === 2 || e.ctrlKey || e.metaKey) {
+    // Right-click should be handled by canvas for panning
+    if (e.button === 2) {
+      return;
+    }
+
+    // Ctrl / Cmd + click can still start a connection
+    if (e.ctrlKey || e.metaKey) {
       handleNodeConnection(nodeId, e);
       return;
     }
@@ -320,7 +345,7 @@ const FlowchartCanvas = ({
   };
 
   const getNodeShape = (node: Node) => {
-    const baseClasses = `absolute cursor-move border-2 border-gray-300 ${node.color} flex items-center justify-center text-center px-2 shadow-lg`;
+    const baseClasses = `absolute cursor-move border-[3px] border-[#13192A] ${node.color} flex items-center justify-center text-center px-3 shadow-lg rounded-2xl font-bold font-[Space_Mono,monospace] tracking-tight`;
     
     switch (node.type) {
       case 'start':
@@ -368,9 +393,9 @@ const FlowchartCanvas = ({
       
       if (!fromNode || !toNode) return null;
       
-      // Calculate connector path based on LIVE node positions (ignore cached from/to points)
-      const path = calculateConnectorPath(fromNode, toNode);
-      
+      // Calculate orthogonal connector path based on LIVE node positions
+      const path = calculateConnectorPath(fromNode, toNode, validatedConnection);
+
       // Calculate ports and midpoint for label/handles
       const fromPorts = getConnectionPorts(fromNode);
       const toPorts = getConnectionPorts(toNode);
@@ -378,18 +403,24 @@ const FlowchartCanvas = ({
       const midY = (fromPorts.output.y + toPorts.input.y) / 2;
 
       const isHovered = hoveredConnection === validatedConnection.id;
+      const isSelected = selectedConnectionId === validatedConnection.id;
 
       return (
         <g key={validatedConnection.id}>
           <path
             d={path}
-            stroke="#64748b"
-            strokeWidth={isHovered ? "3" : "2"}
+            stroke={isSelected ? "#E2711D" : "#64748b"}
+            strokeWidth={isHovered || isSelected ? "3" : "2"}
             fill="none"
             markerEnd="url(#arrowhead)"
             className="cursor-pointer transition-all duration-200"
             onMouseEnter={() => setHoveredConnection(validatedConnection.id)}
             onMouseLeave={() => setHoveredConnection(null)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setSelectedConnectionId(validatedConnection.id);
+              onNodeSelect(null);
+            }}
             onDoubleClick={(e) => {
               e.stopPropagation();
               setEditingConnection({ id: validatedConnection.id, text: validatedConnection.label || '' });
@@ -492,27 +523,31 @@ const FlowchartCanvas = ({
         }
       }}
     >
-      {/* Enhanced Endless Dotted Pattern Background */}
-      <div 
-        className="absolute inset-0 opacity-20"
+      {/* Board content (pan + zoom) */}
+      <div
+        className="absolute inset-0"
         style={{
-          backgroundImage: `
-            radial-gradient(circle, #cbd5e1 1px, transparent 1px)
-          `,
-          backgroundSize: '20px 20px',
-          backgroundPosition: '0 0, 10px 10px',
-          backgroundRepeat: 'repeat',
-          transform: `translate(${canvasState.panX}px, ${canvasState.panY}px)`
+          transform: `translate(${canvasState.panX}px, ${canvasState.panY}px) scale(${canvasState.zoom / 100})`,
+          transformOrigin: '0 0'
         }}
-      />
+      >
+        {/* Large dotted board background (practically "endless") */}
+        <div 
+          className="absolute opacity-20 pointer-events-none"
+          style={{
+            left: '-5000px',
+            top: '-5000px',
+            right: '-5000px',
+            bottom: '-5000px',
+            backgroundImage: 'radial-gradient(circle, #2a3747 1px, transparent 1px)',
+            backgroundSize: '24px 24px',
+            backgroundRepeat: 'repeat'
+          }}
+        />
 
       {/* SVG for connections */}
       <svg 
         className="absolute inset-0 w-full h-full pointer-events-auto"
-        style={{
-          transform: `scale(${canvasState.zoom / 100}) translate(${canvasState.panX * (canvasState.zoom / 100)}px, ${canvasState.panY * (canvasState.zoom / 100)}px)`,
-          transformOrigin: '0 0'
-        }}
       >
         <defs>
           <marker
@@ -536,7 +571,7 @@ const FlowchartCanvas = ({
           try {
             const fromNode = nodes.find(n => n.id === connecting.fromNode);
             if (!fromNode) return null;
-            
+                        
             const tempNode = { ...fromNode, x: mousePosition.x, y: mousePosition.y } as Node;
             const path = calculateConnectorPath(fromNode, tempNode);
             
@@ -598,8 +633,6 @@ const FlowchartCanvas = ({
             top: node.y,
             width: node.width,
             height: node.height,
-            transform: `scale(${canvasState.zoom / 100}) translate(${canvasState.panX * (canvasState.zoom / 100)}px, ${canvasState.panY * (canvasState.zoom / 100)}px)`,
-            transformOrigin: 'center',
             pointerEvents: 'auto'
           }}
           onMouseDown={(e) => handleNodeMouseDown(node.id, e)}
@@ -638,7 +671,7 @@ const FlowchartCanvas = ({
             />
           ) : (
             <span className={`
-              text-sm font-medium text-center
+              text-sm font-bold text-[#13192A] text-center
               ${node.type === 'decision' ? 'transform -rotate-45' : ''}
               whitespace-pre-line
             `}>
@@ -666,10 +699,13 @@ const FlowchartCanvas = ({
         </div>
       ))}
 
+      {/* Close board container */}
+      </div>
+
       {/* Enhanced Instructions */}
       <div className="absolute bottom-4 left-4 bg-white bg-opacity-95 p-4 rounded-lg shadow-lg text-sm text-gray-700 border border-gray-200">
         <div className="space-y-2">
-          <div className="font-semibold text-soodo-oxford-blue mb-2">Canvas Controls</div>
+          <div className="font-semibold text-soodo-oxford-blue mb-2">Board Controls</div>
           <div className="grid grid-cols-2 gap-2 text-xs">
             <div><strong>Shift+Click:</strong> Add node</div>
             <div><strong>Middle Mouse:</strong> Pan canvas</div>

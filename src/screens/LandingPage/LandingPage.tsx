@@ -60,7 +60,6 @@ const featureCards = [
     titleHighlight: true,
   },
 ];
-
 const steps = [
   {
     number: "#1",
@@ -97,9 +96,10 @@ export const LandingPage = (): JSX.Element => {
   };
 
   return (
-    <div className="bg-white w-full min-h-screen relative overflow-x-hidden">
+    <div className="soodo-alice-bg w-full min-h-screen relative overflow-x-hidden">
 
-      <section className="relative pt-32 pb-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
+      {/* Hero */}
+      <section id="about" className="relative pt-32 pb-20 px-4 md:px-8 lg:px-16 max-w-7xl mx-auto">
         <div className="flex flex-col items-center gap-6 mb-12">
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
             <div className="flex items-center gap-3 bg-[#b6ff76] rounded-full border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">

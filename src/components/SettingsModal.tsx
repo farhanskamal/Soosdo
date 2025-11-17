@@ -58,14 +58,19 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50">
       <div className="absolute inset-0 bg-black/30" onClick={onClose} />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] max-w-[94vw] bg-white rounded-xl shadow-2xl border border-gray-200">
-        <div className="flex items-center justify-between p-4 border-b">
-          <div className="flex items-center gap-2">
-            <SlidersHorizontal size={18} className="text-soodo-cocoa-brown" />
-            <h3 className="font-heading font-bold text-soodo-oxford-blue">Settings</h3>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[520px] max-w-[94vw] bg-white rounded-3xl shadow-[0_18px_45px_rgba(0,0,0,0.18)] border border-gray-200">
+        <div className="flex items-center justify-between px-5 py-3 border-b bg-[#FFF9E6]">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center shadow">
+              <SlidersHorizontal size={18} className="text-soodo-cocoa-brown" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-[0.18em] text-gray-500">Soodo Code</span>
+              <h3 className="font-heading font-bold text-soodo-oxford-blue text-sm">Workspace Settings</h3>
+            </div>
           </div>
-          <button onClick={onClose} className="p-2 rounded hover:bg-gray-100">
-            <X size={18} />
+          <button onClick={onClose} className="p-2 rounded-lg hover:bg-white/80">
+            <X size={18} className="text-gray-600" />
           </button>
         </div>
 
@@ -145,12 +150,6 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                       </div>
                     </>
                   )}
-                  <div className="flex items-center gap-2">
-                    <LinkIcon size={16} className="text-gray-500" />
-                    <input type="text" value={settings.customEndpoint||''}
-                      onChange={(e)=>setSettings(s=>({...s, customEndpoint: e.target.value}))}
-                      className="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder="https://api.yourservice.com/chat" />
-                  </div>
                 </>
               )}
 
