@@ -3,6 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 
+// Helper function to get the correct image path
+const getImagePath = (path: string) => {
+  const base = import.meta.env.BASE_URL;
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
+};
+
 const Arrow: React.FC<{
   direction: 'right' | 'down' | 'up' | 'left' | 'down-right';
   className?: string;
@@ -37,20 +43,20 @@ const featureCards = [
     description:
       "Drag-and-drop logic blocks to design your program flow. No code needed to start thinking algorithmically.",
     bgColor: "bg-[#e876ff]",
-    icon: "/fi-br-vector-alt.svg",
+    icon: "fi-br-vector-alt.svg",
   },
   {
     title: "AI Code Generation",
     description:
       "Transform your pseudo code and flowcharts into production-ready code instantly with intelligent AI assistance.",
     bgColor: "bg-[#efff76]",
-    icon: "/fi-br-head-side-thinking.svg",
+    icon: "fi-br-head-side-thinking.svg",
   },
   {
     title: "Open Source Friendly",
     description: "To be discussed.....",
     bgColor: "bg-[#ff7676]",
-    icon: "/fi-br-globe.svg",
+    icon: "fi-br-globe.svg",
     titleHighlight: true,
   },
 ];
@@ -60,54 +66,24 @@ const steps = [
     title: "Design your logic visually",
     description:
       "Start by creating flowcharts and pseudocode using our intuitive visual editor. Think through your algorithm step by step.",
-    image: "/image-1.png",
-    icon: "/fi-sr-cursor.svg",
-    numberLeft: "left-12",
-    numberTop: "top-[1612px]",
-    titleLeft: "left-[127px]",
-    titleTop: "top-[1594px]",
-    descLeft: "left-[127px]",
-    descTop: "top-[1632px]",
-    imageLeft: "left-[720px]",
-    imageTop: "top-[1457px]",
-    iconLeft: "left-[978px]",
-    iconTop: "top-[1523px]",
+    image: "image-1.png",
+    icon: "fi-sr-cursor.svg",
   },
   {
     number: "#2",
     title: "Let AI create a plan & generate code",
     description:
       "Our AI analyzes your visual design and generates clean, production-ready code in your preferred language.",
-    image: "/image-2.png",
+    image: "image-2.png",
     icon: null,
-    numberLeft: "left-[734px]",
-    numberTop: "top-[2141px]",
-    titleLeft: "left-[813px]",
-    titleTop: "top-[2123px]",
-    descLeft: "left-[813px]",
-    descTop: "top-[2161px]",
-    imageLeft: "left-12",
-    imageTop: "top-[1986px]",
-    iconLeft: null,
-    iconTop: null,
   },
   {
     number: "#3",
     title: "Export, build, and refine",
     description:
       "Download your code, integrate it into your project, and iterate. Soodo Code learns from your style.",
-    image: "/image-3.png",
-    icon: "/fi-sr-cursor.svg",
-    numberLeft: "left-12",
-    numberTop: "top-[2670px]",
-    titleLeft: "left-[127px]",
-    titleTop: "top-[2652px]",
-    descLeft: "left-[127px]",
-    descTop: "top-[2690px]",
-    imageLeft: "left-[720px]",
-    imageTop: "top-[2511px]",
-    iconLeft: "left-[1300px]",
-    iconTop: "top-[2664px]",
+    image: "image-3.png",
+    icon: "fi-sr-cursor.svg",
   },
 ];
 
@@ -130,13 +106,13 @@ export const LandingPage = (): JSX.Element => {
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl whitespace-nowrap">
                 VISUALLY
               </span>
-              <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="/fi-br-forward.svg" />
+              <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src={getImagePath("fi-br-forward.svg")} />
             </div>
 
             <Arrow direction="right" className="hidden md:block" />
 
             <div className="flex items-center gap-3 bg-[#efff76] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <div className="w-5 h-6 bg-[url(/vector-2.svg)] bg-[100%_100%]" />
+              <div className="w-5 h-6 bg-[url(/vector-2.svg)] bg-[100%_100%]" style={{ backgroundImage: `url(${getImagePath("vector-2.svg")})` }} />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 SPEAK
               </span>
@@ -147,7 +123,7 @@ export const LandingPage = (): JSX.Element => {
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
             <div className="flex items-center gap-3 bg-[#e876ff] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <img className="w-6 h-6" alt="Indent" src="/fi-br-indent.svg" />
+              <img className="w-6 h-6" alt="Indent" src={getImagePath("fi-br-indent.svg")} />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 WHAT
               </span>
@@ -156,7 +132,7 @@ export const LandingPage = (): JSX.Element => {
             <Arrow direction="right" className="hidden md:block" />
 
             <div className="flex items-center gap-3 bg-[#f6cbff] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <img className="w-6 h-6" alt="Indent" src="/fi-br-indent.svg" />
+              <img className="w-6 h-6" alt="Indent" src={getImagePath("fi-br-indent.svg")} />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 YOU
               </span>
@@ -166,7 +142,7 @@ export const LandingPage = (): JSX.Element => {
           <Arrow direction="down" />
 
           <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-            <div className="w-8 h-8 bg-[url(/vector.svg)] bg-[100%_100%]" />
+            <div className="w-8 h-8 bg-[url(/vector.svg)] bg-[100%_100%]" style={{ backgroundImage: `url(${getImagePath("vector.svg")})` }} />
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
               WANT.
             </span>
@@ -178,8 +154,8 @@ export const LandingPage = (): JSX.Element => {
             with
           </div>
           <div className="flex items-center gap-4">
-            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="/vector-1.svg" />
-            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="/-code.svg" />
+            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src={getImagePath("vector-1.svg")} />
+            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src={getImagePath("-code.svg")} />
           </div>
         </div>
 
@@ -227,12 +203,19 @@ export const LandingPage = (): JSX.Element => {
               />
             </div>
           </div>
+        <div className="flex justify-center mt-12">
+          <Button onClick={handleTryToday} className="flex items-center gap-3 bg-[#b6ff76] hover:bg-[#a5ee65] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6 h-auto cursor-pointer transition-colors">
+            <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xl md:text-3xl">
+              Try Today!
+            </span>
+            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src={getImagePath("fi-br-forward.svg")} />
+          </Button>
         </div>
       </section>
 
       <nav className="fixed top-4 left-4 right-4 md:left-8 md:right-auto md:w-auto z-50 bg-[#ffffffcc] rounded-3xl border border-solid border-[#a0a0a08c] shadow-[0px_4px_62.3px_#0000002b] backdrop-blur-[2px]">
         <div className="flex items-center gap-4 md:gap-6 px-4 py-3">
-          <img className="w-10 h-10 md:w-12 md:h-12" alt="Logo" src="/group-29.png" />
+          <img className="w-10 h-10 md:w-12 md:h-12" alt="Logo" src={getImagePath("group-29.png")} />
 
           <div className="hidden md:flex items-center gap-6">
             <a href="#about" className="[font-family:'Space_Mono',Helvetica] font-normal text-[#13192ab2] text-lg md:text-xl hover:text-[#13192a] transition-colors">
@@ -254,7 +237,7 @@ export const LandingPage = (): JSX.Element => {
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xs md:text-sm">
               Login
             </span>
-            <img className="w-4 h-4 ml-2" alt="Forward" src="/fi-br-forward.svg" />
+            <img className="w-4 h-4 ml-2" alt="Forward" src={getImagePath("fi-br-forward.svg")} />
           </Button>
         </div>
       </nav>
@@ -267,7 +250,7 @@ export const LandingPage = (): JSX.Element => {
               className={`${card.bgColor} rounded-3xl border-4 md:border-[7px] border-[#13192a] overflow-hidden`}
             >
               <CardContent className="p-6 md:p-8 flex flex-col items-center gap-6 min-h-[280px] md:min-h-[339px]">
-                <img className="w-10 h-10 md:w-12 md:h-12" alt={card.title} src={card.icon} />
+                <img className="w-10 h-10 md:w-12 md:h-12" alt={card.title} src={getImagePath(card.icon)} />
                 <h3 className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl text-center">
                   {card.titleHighlight ? (
                     <>
@@ -311,7 +294,7 @@ export const LandingPage = (): JSX.Element => {
                   {step.description}
                 </p>
                 {step.icon && (
-                  <img className="w-10 h-10 md:w-12 md:h-12" alt="Cursor" src={step.icon} />
+                  <img className="w-10 h-10 md:w-12 md:h-12" alt="Cursor" src={getImagePath(step.icon)} />
                 )}
               </div>
 
@@ -326,7 +309,7 @@ export const LandingPage = (): JSX.Element => {
                 <img
                   className="w-full h-auto rounded-3xl border-4 md:border-[7px] border-[#13192a33] shadow-lg"
                   alt={`Step ${step.number}`}
-                  src={step.image}
+                  src={getImagePath(step.image)}
                 />
               </div>
             </div>
@@ -341,13 +324,13 @@ export const LandingPage = (): JSX.Element => {
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xl md:text-3xl">
               TRY
             </span>
-            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="/fi-br-forward.svg" />
+            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src={getImagePath("fi-br-forward.svg")} />
           </Button>
 
             <Arrow direction="down" className="md:hidden" />
 
             <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6">
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-[url(/vector.svg)] bg-[100%_100%]" />
+              <div className="w-7 h-7 md:w-8 md:h-8 bg-[url(/vector.svg)] bg-[100%_100%]" style={{ backgroundImage: `url(${getImagePath("vector.svg")})` }} />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 TODAY.
               </span>
@@ -359,8 +342,8 @@ export const LandingPage = (): JSX.Element => {
           </div>
 
           <div className="flex items-center gap-4">
-            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="/vector-1.svg" />
-            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="/-code.svg" />
+            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src={getImagePath("vector-1.svg")} />
+            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src={getImagePath("-code.svg")} />
           </div>
         </div>
       </section>

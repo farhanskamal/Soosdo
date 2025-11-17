@@ -27,7 +27,7 @@ import App from './App.tsx'
 
 function Root() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/app" element={<App />} />
