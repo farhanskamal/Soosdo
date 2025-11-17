@@ -523,7 +523,7 @@ const FlowchartCanvas = ({
         }
       }}
     >
-      {/* Board content (pan + zoom) */}
+      {/* Board content (pan + zoom)  */}
       <div
         className="absolute inset-0"
         style={{
