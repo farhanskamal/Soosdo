@@ -15,6 +15,7 @@ interface AIAssistantProps {
 interface SoodoSettings {
   theme: 'light' | 'dark' | 'system';
   apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'supabase' | 'custom' | 'none';
+  apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'custom' | 'supabase' | 'none';
   codeProvider?: 'local' | 'supabase' | 'custom';
   apiKey?: string;
   chatModel?: string;      // e.g., gpt-4o-mini, claude-3-5-sonnet-latest
@@ -147,9 +148,13 @@ const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName 
           ...messages.slice(-6).map(m => ({ role: m.type === 'assistant' ? 'assistant' : 'user', content: m.content }))
         ];
         // latest user with images
-        const contentParts: any[] = [{ type: 'text', text: message }];
-        for (const img of imagesBase64) contentParts.push({ type: 'input_image', image_url: img });
-        chatMessages.push({ role: 'user', content: contentParts });
+        // OpenAI's chat API expects message.content to be a string, so serialize the text and any attached images.
+        let userContent = message || '';
+        if (imagesBase64 && imagesBase64.length) {
+          const imgsText = imagesBase64.map((img, i) => `[image_${i + 1}]: ${img}`).join('\n');
+          userContent = `${userContent}\n\nAttached images:\n${imgsText}`;
+        }
+        chatMessages.push({ role: 'user', content: userContent });
 
         const res = await fetch('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
