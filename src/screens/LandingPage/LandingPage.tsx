@@ -183,13 +183,50 @@ export const LandingPage = (): JSX.Element => {
           </div>
         </div>
 
-        <div className="flex justify-center mt-12">
-          <Button onClick={handleTryToday} className="flex items-center gap-3 bg-[#b6ff76] hover:bg-[#a5ee65] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6 h-auto cursor-pointer transition-colors">
-            <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xl md:text-3xl">
-              Try Today!
-            </span>
-            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="/fi-br-forward.svg" />
-          </Button>
+        {/* Mixed hero: copy + CTA + editor preview */}
+        <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Copy + CTA */}
+          <div className="space-y-4">
+            <p className="[font-family:'Roboto',Helvetica] text-base md:text-xl text-[#13192a] max-w-xl">
+              Sketch your logic visually, talk to the AI in plain language, and let Soodo Code turn it into
+              clean, ready-to-run source code. Perfect for prototyping, teaching, and building real projects.
+            </p>
+            <div className="flex flex-wrap items-center gap-4">
+              <Button
+                onClick={handleTryToday}
+                className="flex items-center gap-3 bg-[#b6ff76] hover:bg-[#a5ee65] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-10 py-3 md:py-4 h-auto cursor-pointer transition-colors"
+              >
+                <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-lg md:text-2xl">
+                  Try in browser
+                </span>
+                <img className="w-6 h-6 md:w-7 md:h-7" alt="Forward" src="/fi-br-forward.svg" />
+              </Button>
+              <span className="text-xs md:text-sm text-[#13192ab2] [font-family:'Roboto',Helvetica]">
+                No install. Runs fully in your browser.
+              </span>
+            </div>
+          </div>
+
+          {/* Editor preview card */}
+          <div className="relative">
+            <div className="rounded-3xl border-4 md:border-[7px] border-[#13192a] bg-white shadow-[0_18px_45px_rgba(0,0,0,0.18)] overflow-hidden">
+              <div className="bg-[#fdf6e3] border-b border-[#13192a1f] px-4 py-2 flex items-center gap-2">
+                <div className="flex gap-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57] border border-black/20" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e] border border-black/20" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#28c840] border border-black/20" />
+                </div>
+                <span className="ml-2 text-xs md:text-sm text-[#13192a] [font-family:'Space_Mono',Helvetica]">
+                  Soodo Code · Flowchart editor
+                </span>
+              </div>
+              <img
+                src="/image-1.png"
+                alt="Soodo Code editor preview"
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
         </div>
       </section>
 

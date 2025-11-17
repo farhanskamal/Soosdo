@@ -6,7 +6,7 @@ interface SettingsModalProps {
   onClose: () => void;
 }
 
-interface SoodoSettings {
+export interface SoodoSettings {
   theme: 'light' | 'dark' | 'system';
   apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'supabase' | 'custom' | 'none';
   codeProvider?: 'local' | 'supabase' | 'custom';

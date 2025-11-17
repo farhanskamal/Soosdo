@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { X, Send, Copy, CheckSquare, Square, Zap, RefreshCw, Image as ImageIcon } from 'lucide-react';
 import { Task, AIMessage, GeneratedCode, Node, Connection } from '../types';
 import { generateCodeFromFlowchart, CodeGenerationResult } from '../utils/codeGenerator';
+import type { SoodoSettings } from './SettingsModal';
 
 interface AIAssistantProps {
   isOpen: boolean;
@@ -12,15 +13,6 @@ interface AIAssistantProps {
 }
 
 // Settings stored in localStorage under 'soodo-settings'
-interface SoodoSettings {
-  theme: 'light' | 'dark' | 'system';
-  apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'supabase' | 'custom' | 'none';
-  codeProvider?: 'local' | 'supabase' | 'custom';
-  apiKey?: string;
-  chatModel?: string;      // e.g., gpt-4o-mini, claude-3-5-sonnet-latest
-  customEndpoint?: string; // chat service
-  codeEndpoint?: string;   // flowchart-to-code service
-}
 const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName = 'Generated Program' }: AIAssistantProps) => {
   const [chatMessage, setChatMessage] = useState('');
   const [uploadingImage, setUploadingImage] = useState(false);
