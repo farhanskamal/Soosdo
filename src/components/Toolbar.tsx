@@ -159,42 +159,45 @@ const Toolbar = ({
 
   return (
     <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-30">
-      <div className="bg-white rounded-full shadow-lg border border-gray-200 p-2 transition-all duration-300">
-        <div className="flex items-center space-x-1">
+      {/* Outer pill */}
+      <div className="bg-white/95 border border-[#13192A1A] shadow-[0_12px_32px_rgba(0,0,0,0.22)] rounded-full px-2 py-1.5 transition-all duration-300 backdrop-blur-md">
+        {/* Inner soft-pink bar */}
+        <div className="flex items-center space-x-2 bg-[#FFE4E1] bg-opacity-80 rounded-full px-3 py-1.5">
           {/* Main Tools */}
+          {/* Play / primary button - yellow pill */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className={`p-3 hover:bg-gray-100 rounded-full transition-colors group relative ${
-              isExpanded ? 'bg-soodo-cocoa-brown bg-opacity-10' : ''
+            className={`p-2.5 rounded-full transition-colors group relative border border-[#13192A] shadow-[0_4px_0_rgba(19,25,42,0.8)] ${
+              isExpanded ? 'bg-[#FFD88A]' : 'bg-white'
             }`}
             title={isExpanded ? 'Collapse Toolbar' : 'Expand Toolbar'}
           >
-            <Play size={20} className={`${isExpanded ? 'text-soodo-cocoa-brown' : 'text-gray-600'}`} />
+            <Play size={18} className="text-[#13192A]" />
           </button>
 
           {/* Expanded Tools */}
           {isExpanded && (
             <>
               {/* Navigation Tools */}
-              <div className="w-px h-8 bg-gray-300 mx-1" />
+              <div className="w-px h-7 bg-[#13192A1A] mx-1" />
               
               <button
                 onClick={() => onToolChange(activeTool === 'select' ? 'move' : 'select')}
-                className={`p-2 hover:bg-gray-100 rounded-lg transition-colors group relative ${
-                  activeTool === 'move' ? 'bg-blue-100 text-blue-600' : ''
+                className={`p-2 rounded-full transition-colors group relative ${
+                  activeTool === 'move' ? 'bg-white text-[#13192A]' : 'hover:bg-white/60'
                 }`}
                 title={`${activeTool === 'select' ? 'Enable' : 'Disable'} Move Tool`}
               >
-                <Hand size={18} className={activeTool === 'move' ? 'text-blue-600' : 'text-gray-600'} />
+                <Hand size={18} className={activeTool === 'move' ? 'text-[#13192A]' : 'text-[#13192A]'} />
               </button>
 
               <button
                 onClick={handleFitToView}
                 disabled={nodes.length === 0}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group relative disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full transition-colors group relative hover:bg-white/60 disabled:opacity-40 disabled:cursor-not-allowed"
                 title="Fit to View"
               >
-                <ZoomIn size={18} className="text-gray-600" />
+                <ZoomIn size={18} className="text-[#13192A]" />
               </button>
 
               {/* History Controls */}
@@ -203,19 +206,19 @@ const Toolbar = ({
               <button
                 onClick={onUndo}
                 disabled={!canUndo}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group relative disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full transition-colors group relative hover:bg-white/60 disabled:opacity-40 disabled:cursor-not-allowed"
                 title="Undo (Ctrl+Z)"
               >
-                <Undo size={18} className={canUndo ? 'text-gray-600' : 'text-gray-400'} />
+                <Undo size={18} className={canUndo ? 'text-[#13192A]' : 'text-[#13192A40]'} />
               </button>
 
               <button
                 onClick={onRedo}
                 disabled={!canRedo}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group relative disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full transition-colors group relative hover:bg-white/60 disabled:opacity-40 disabled:cursor-not-allowed"
                 title="Redo (Ctrl+Y)"
               >
-                <Redo size={18} className={canRedo ? 'text-gray-600' : 'text-gray-400'} />
+                <Redo size={18} className={canRedo ? 'text-[#13192A]' : 'text-[#13192A40]'} />
               </button>
 
               {/* Node Tools */}
@@ -226,37 +229,37 @@ const Toolbar = ({
                   e.preventDefault();
                   setShowNodePalette(!showNodePalette);
                 }}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group relative"
+                className="p-2 rounded-full transition-colors group relative hover:bg-white/60"
                 title="Add Node (Shift+Click on canvas)"
               >
-                <Plus size={18} className="text-gray-600" />
+                <Plus size={18} className="text-[#13192A]" />
               </button>
 
               {/* Delete Selected */}
               <button
                 onClick={onDeleteSelected}
                 disabled={!selectedNode}
-                className="p-2 hover:bg-red-100 rounded-lg transition-colors group relative disabled:opacity-50 disabled:cursor-not-allowed"
+                className="p-2 rounded-full transition-colors group relative hover:bg-[#FFE0E0] disabled:opacity-40 disabled:cursor-not-allowed"
                 title="Delete Selected (Delete)"
               >
                 <Trash2 size={18} className={selectedNode ? 'text-red-500' : 'text-gray-400'} />
               </button>
 
               {/* Zoom Controls */}
-              <div className="w-px h-8 bg-gray-300 mx-1" />
+              <div className="w-px h-7 bg-[#13192A1A] mx-1" />
 
-              <div className="flex items-center space-x-1 bg-gray-50 rounded-lg px-2">
+              <div className="flex items-center space-x-1 bg-white/70 rounded-full px-2">
                 <button
                   onClick={handleZoomOut}
                   disabled={canvasState.zoom <= 50}
-                  className="p-1 hover:bg-gray-200 rounded transition-colors disabled:opacity-50"
+                  className="p-1 hover:bg-white rounded-full transition-colors disabled:opacity-40"
                   title="Zoom Out"
                 >
-                  <ZoomOut size={16} className="text-gray-600" />
+                  <ZoomOut size={16} className="text-[#13192A]" />
                 </button>
                 
                 <span 
-                  className="text-sm font-mono text-gray-700 min-w-[3rem] text-center cursor-pointer hover:bg-gray-200 px-1 rounded"
+                  className="text-sm font-mono text-[#13192A] min-w-[3rem] text-center cursor-pointer hover:bg-white px-1 rounded-full"
                   onClick={handleResetZoom}
                   title="Click to reset zoom"
                 >
@@ -266,45 +269,45 @@ const Toolbar = ({
                 <button
                   onClick={handleZoomIn}
                   disabled={canvasState.zoom >= 200}
-                  className="p-1 hover:bg-gray-200 rounded transition-colors disabled:opacity-50"
+                  className="p-1 hover:bg-white rounded-full transition-colors disabled:opacity-40"
                   title="Zoom In"
                 >
-                  <ZoomIn size={16} className="text-gray-600" />
+                  <ZoomIn size={16} className="text-[#13192A]" />
                 </button>
               </div>
 
               {/* Utility Tools */}
-              <div className="w-px h-8 bg-gray-300 mx-1" />
+              <div className="w-px h-7 bg-[#13192A1A] mx-1" />
 
               <button
                 onClick={handleUpload}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+                className="p-2 rounded-full transition-colors group hover:bg-white/60"
                 title="Import Boards"
               >
-                <FolderOpen size={18} className="text-gray-600" />
+                <FolderOpen size={18} className="text-[#13192A]" />
               </button>
 
               <button
                 onClick={handleExportAll}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+                className="p-2 rounded-full transition-colors group hover:bg-white/60"
                 title="Export All Boards"
               >
-                <Save size={18} className="text-gray-600" />
+                <Save size={18} className="text-[#13192A]" />
               </button>
 
               <button
                 onClick={handleExportCurrent}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group"
+                className="p-2 rounded-full transition-colors group hover:bg-white/60"
                 title="Export Current Board"
               >
-                <Download size={18} className="text-gray-600" />
+                <Download size={18} className="text-[#13192A]" />
               </button>
 
               <button
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors group relative"
+                className="p-2 rounded-full transition-colors group relative hover:bg-white/60"
                 title="Collaboration"
               >
-                <Users size={18} className="text-gray-600" />
+                <Users size={18} className="text-[#13192A]" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
               </button>
             </>

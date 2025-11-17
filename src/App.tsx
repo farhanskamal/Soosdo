@@ -417,7 +417,7 @@ function App() {
   const activeBoard = boards.find(b => b.id === activeBoardId)!;
 
   return (
-    <div className="h-screen w-full soodo-alice-bg font-body overflow-hidden">
+    <div className="relative h-screen w-full soodo-alice-bg font-body overflow-hidden">
       <Toaster position="top-right" />
       
       {/* Header */}
@@ -430,7 +430,7 @@ function App() {
       />
 
       {/* Main Layout */}
-      <div className="flex h-[calc(100vh-64px)]">
+      <div className="flex h-full">
         {/* Left Sidebar */}
         <BoardSidebar
           isOpen={isLeftSidebarOpen}

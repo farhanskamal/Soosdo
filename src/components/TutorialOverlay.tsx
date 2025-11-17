@@ -18,7 +18,7 @@ const TutorialOverlay = ({ isVisible, onClose }: TutorialOverlayProps) => {
     },
     {
       title: "Add Nodes",
-      content: "Shift+Click anywhere on the canvas to add different types of nodes. Try it now!",
+      content: "Shift+Click anywhere on the board to add different types of nodes. Try it now!",
       icon: Plus,
       position: "canvas"
     },
@@ -54,8 +54,8 @@ const TutorialOverlay = ({ isVisible, onClose }: TutorialOverlayProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 relative">
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+      <div className="bg-white rounded-3xl shadow-[0_18px_45px_rgba(0,0,0,0.2)] border border-gray-200 max-w-md w-full mx-4 p-6 relative">
         {/* Close button */}
         <button
           onClick={onClose}
@@ -66,8 +66,8 @@ const TutorialOverlay = ({ isVisible, onClose }: TutorialOverlayProps) => {
 
         {/* Icon */}
         <div className="flex justify-center mb-4">
-          <div className="w-16 h-16 bg-soodo-cocoa-brown bg-opacity-10 rounded-full flex items-center justify-center">
-            <Icon size={32} className="text-soodo-cocoa-brown" />
+          <div className="w-16 h-16 bg-[var(--soodo-jasmine)] bg-opacity-80 rounded-full flex items-center justify-center shadow-md border-2 border-[#13192A]">
+            <Icon size={32} className="text-[#13192A]" />
           </div>
         </div>
 
@@ -94,18 +94,18 @@ const TutorialOverlay = ({ isVisible, onClose }: TutorialOverlayProps) => {
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center mt-4">
           <button
             onClick={handleSkip}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
+            className="px-4 py-2 text-xs font-heading text-gray-500 hover:text-gray-800 transition-colors"
           >
-            Skip Tutorial
+            Skip for now
           </button>
           <button
             onClick={handleNext}
-            className="px-6 py-2 bg-soodo-cocoa-brown text-white rounded-lg hover:bg-opacity-90 transition-colors"
+            className="px-6 py-2 bg-[var(--soodo-cocoa-brown)] text-white rounded-full border-2 border-[#13192A] shadow-sm hover:bg-opacity-90 transition-colors text-sm font-heading"
           >
-            {currentStep === steps.length - 1 ? 'Get Started' : 'Next'}
+            {currentStep === steps.length - 1 ? 'Start building' : 'Next step'}
           </button>
         </div>
       </div>

@@ -38,38 +38,35 @@ export const getConnectionPorts = (node: Node): { input: ConnectionPort; output:
   }
 };
 
-// Calculate smooth connector path between two nodes
+// Calculate a simple orthogonal (elbow) connector path between two nodes.
+// Always attaches directly to the node ports and ignores any cached points to
+// avoid connectors "jumping" to other nodes.
 export const calculateConnectorPath = (
   fromNode: Node,
   toNode: Node,
-  connectionData?: Partial<Connection>
+  _connectionData?: Partial<Connection>
 ): string => {
   try {
     const fromPorts = getConnectionPorts(fromNode);
     const toPorts = getConnectionPorts(toNode);
-    
-    // Always use live port centers so connectors follow nodes
+
     const startX = fromPorts.output.x;
     const startY = fromPorts.output.y;
     const endX = toPorts.input.x;
     const endY = toPorts.input.y;
-    
-    // Calculate control points for smooth Bezier curve
-    const distance = Math.abs(endX - startX);
-    const baseOffset = Math.max(20, distance * 0.3);
-    const curvature = typeof connectionData?.curvature === 'number' ? connectionData.curvature : 1;
-    const controlOffset = baseOffset * curvature;
-    
-    const control1X = startX + controlOffset;
-    const control1Y = startY;
-    const control2X = endX - controlOffset;
-    const control2Y = endY;
-    
-    // Create smooth cubic Bezier path
-    return `M ${startX} ${startY} C ${control1X} ${control1Y}, ${control2X} ${control2Y}, ${endX} ${endY}`;
+
+    // Simple elbow: horizontal from start, then vertical, then horizontal into end
+    const midX = (startX + endX) / 2;
+
+    return [
+      `M ${startX} ${startY}`,
+      `L ${midX} ${startY}`,
+      `L ${midX} ${endY}`,
+      `L ${endX} ${endY}`,
+    ].join(' ');
   } catch (error) {
     console.warn('Error calculating connector path:', error);
-    // Fallback to simple line
+    // Fallback to straight line between ports
     const fromPorts = getConnectionPorts(fromNode);
     const toPorts = getConnectionPorts(toNode);
     return `M ${fromPorts.output.x} ${fromPorts.output.y} L ${toPorts.input.x} ${toPorts.input.y}`;

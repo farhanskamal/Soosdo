@@ -14,7 +14,7 @@ interface AIAssistantProps {
 // Settings stored in localStorage under 'soodo-settings'
 interface SoodoSettings {
   theme: 'light' | 'dark' | 'system';
-  apiProvider?: 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'custom' | 'none';
+  apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'supabase' | 'custom' | 'none';
   codeProvider?: 'local' | 'supabase' | 'custom';
   apiKey?: string;
   chatModel?: string;      // e.g., gpt-4o-mini, claude-3-5-sonnet-latest
@@ -53,7 +53,9 @@ const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName 
   const getSettings = (): SoodoSettings => {
     try {
       const raw = localStorage.getItem('soodo-settings');
-      const s: SoodoSettings = raw ? JSON.parse(raw) : { theme: 'light', apiProvider: 'auto', codeProvider: 'local' } as any;
+      const s: SoodoSettings = raw
+        ? { theme: 'light', apiProvider: 'auto', codeProvider: 'local', ...JSON.parse(raw) }
+        : { theme: 'light', apiProvider: 'auto', codeProvider: 'local' };
       // Auto-detect provider by key/endpoint if 'auto'
       if (s.apiProvider === 'auto') {
         const k = s.apiKey || '';
@@ -426,10 +428,15 @@ const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName 
       )}
 
       {/* Sidebar */}
-      <div className={`
-        fixed right-0 top-0 h-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 overflow-hidden
-        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-      `} style={{ width: 'min(100vw, 24rem)' }}>
+      <div
+        className={`
+          fixed right-4 top-4 bottom-4 bg-white/95 backdrop-blur-sm
+          shadow-[0_18px_45px_rgba(0,0,0,0.18)] border border-gray-200
+          rounded-3xl transform transition-transform duration-300 ease-in-out z-50 overflow-hidden
+          ${isOpen ? 'translate-x-0' : 'translate-x-[110%]'}
+        `}
+        style={{ width: 'min(420px, 100vw - 2rem)' }}
+      >
         <div className="h-full flex flex-col">
           {/* Header */}
           <div className="p-4 border-b border-gray-200 flex items-center justify-between">
@@ -455,7 +462,13 @@ const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName 
             <div className="h-[67rem] overflow-auto flex flex-col p-4 space-y-4">
               {messages.map((m) => (
                 <div key={m.id} className={`flex ${m.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[86%] ${m.type==='user' ? 'bg-[#F9DF74] text-black rounded-2xl px-3 py-2 shadow' : ''}`}>
+                  <div
+                    className={`max-w-[86%] rounded-2xl px-4 py-3 shadow-sm border
+                      ${m.type === 'user'
+                        ? 'bg-[var(--soodo-jasmine)] border-[#FACC15] text-black'
+                        : 'bg-white border-[#E5E7EB] text-gray-800'}
+                    `}
+                  >
                     {/* Text */}
                     <div className={`${m.type==='assistant' ? 'text-gray-800' : ''} text-[13px] leading-relaxed font-normal font-body whitespace-pre-wrap`}>{m.content}</div>
 

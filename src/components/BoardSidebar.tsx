@@ -113,15 +113,22 @@ const BoardSidebar = ({ isOpen, boards, onClose, onBoardCreate, onBoardSwitch, o
 
       {/* Sidebar */}
       <div className={`
-        fixed left-0 top-0 h-full w-80 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50
+        fixed left-0 top-0 h-full w-80 bg-white border-r border-gray-200 shadow-[0_12px_40px_rgba(0,0,0,0.12)]
+        rounded-tr-3xl rounded-br-3xl transform transition-transform duration-300 ease-in-out z-50
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-full flex flex-col">
-          {/* Header */}
-          <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-            <h2 className="text-lg font-heading font-bold text-soodo-oxford-blue">
-              Boards ({filteredBoards.length})
-            </h2>
+          {/* Header / Logo */}
+          <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl bg-[var(--soodo-jasmine)] flex items-center justify-center shadow">
+                <span className="text-[var(--soodo-oxford-blue)] font-heading font-bold text-sm">S</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] uppercase tracking-[0.18em] text-gray-400">Boards</span>
+                <span className="text-sm font-heading font-bold text-soodo-oxford-blue">Soodo Code</span>
+              </div>
+            </div>
             <button
               onClick={onClose}
               className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -197,8 +204,10 @@ const BoardSidebar = ({ isOpen, boards, onClose, onBoardCreate, onBoardSwitch, o
                   onMouseEnter={() => setHoveredBoardId(board.id)}
                   onMouseLeave={() => setHoveredBoardId(null)}
                   className={`
-                    group border-b border-gray-100 hover:bg-gray-50 transition-colors
-                    ${board.isActive ? 'bg-soodo-alice-blue border-l-4 border-l-soodo-cocoa-brown' : ''}
+                    group transition-colors
+                    ${board.isActive
+                      ? 'bg-[#FFEFD5] border-l-4 border-l-[var(--soodo-cocoa-brown)]'
+                      : 'border-b border-gray-100 hover:bg-gray-50'}
                   `}
                 >
                   <div className="p-4 flex items-center justify-between">
