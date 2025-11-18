@@ -37,20 +37,20 @@ const featureCards = [
     description:
       "Drag-and-drop logic blocks to design your program flow. No code needed to start thinking algorithmically.",
     bgColor: "bg-[#e876ff]",
-    icon: "/fi-br-vector-alt.svg",
+    icon: "fi-br-vector-alt.svg",
   },
   {
     title: "AI Code Generation",
     description:
       "Transform your pseudo code and flowcharts into production-ready code instantly with intelligent AI assistance.",
     bgColor: "bg-[#efff76]",
-    icon: "/fi-br-head-side-thinking.svg",
+    icon: "fi-br-head-side-thinking.svg",
   },
   {
     title: "Open Source Friendly",
     description: "To be discussed.....",
     bgColor: "bg-[#ff7676]",
-    icon: "/fi-br-globe.svg",
+    icon: "fi-br-globe.svg",
     titleHighlight: true,
   },
 ];
@@ -60,8 +60,8 @@ const steps = [
     title: "Design your logic visually",
     description:
       "Start by creating flowcharts and pseudocode using our intuitive visual editor. Think through your algorithm step by step.",
-    image: "/image-1.png",
-    icon: "/fi-sr-cursor.svg",
+    image: "image-1.png",
+    icon: "fi-sr-cursor.svg",
     numberLeft: "left-12",
     numberTop: "top-[1612px]",
     titleLeft: "left-[127px]",
@@ -78,7 +78,7 @@ const steps = [
     title: "Let AI create a plan & generate code",
     description:
       "Our AI analyzes your visual design and generates clean, production-ready code in your preferred language.",
-    image: "/image-2.png",
+    image: "image-2.png",
     icon: null,
     numberLeft: "left-[734px]",
     numberTop: "top-[2141px]",
@@ -96,8 +96,8 @@ const steps = [
     title: "Export, build, and refine",
     description:
       "Download your code, integrate it into your project, and iterate. Soodo Code learns from your style.",
-    image: "/image-3.png",
-    icon: "/fi-sr-cursor.svg",
+    image: "image-3.png",
+    icon: "fi-sr-cursor.svg",
     numberLeft: "left-12",
     numberTop: "top-[2670px]",
     titleLeft: "left-[127px]",
@@ -130,13 +130,13 @@ export const LandingPage = (): JSX.Element => {
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl whitespace-nowrap">
                 VISUALLY
               </span>
-              <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="/fi-br-forward.svg" />
+              <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="fi-br-forward.svg" />
             </div>
 
             <Arrow direction="right" className="hidden md:block" />
 
             <div className="flex items-center gap-3 bg-[#efff76] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <div className="w-5 h-6 bg-[url(/vector-2.svg)] bg-[100%_100%]" />
+              <div className="w-5 h-6 bg-[url(vector-2.svg)] bg-[100%_100%]" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 SPEAK
               </span>
@@ -147,7 +147,7 @@ export const LandingPage = (): JSX.Element => {
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
             <div className="flex items-center gap-3 bg-[#e876ff] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <img className="w-6 h-6" alt="Indent" src="/fi-br-indent.svg" />
+              <img className="w-6 h-6" alt="Indent" src="fi-br-indent.svg" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 WHAT
               </span>
@@ -156,7 +156,7 @@ export const LandingPage = (): JSX.Element => {
             <Arrow direction="right" className="hidden md:block" />
 
             <div className="flex items-center gap-3 bg-[#f6cbff] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <img className="w-6 h-6" alt="Indent" src="/fi-br-indent.svg" />
+              <img className="w-6 h-6" alt="Indent" src="fi-br-indent.svg" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 YOU
               </span>
@@ -166,7 +166,7 @@ export const LandingPage = (): JSX.Element => {
           <Arrow direction="down" />
 
           <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-            <div className="w-8 h-8 bg-[url(/vector.svg)] bg-[100%_100%]" />
+            <div className="w-8 h-8 bg-[url(vector.svg)] bg-[100%_100%]" />
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
               WANT.
             </span>
@@ -178,8 +178,8 @@ export const LandingPage = (): JSX.Element => {
             with
           </div>
           <div className="flex items-center gap-4">
-            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="/vector-1.svg" />
-            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="/-code.svg" />
+            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="vector-1.svg" />
+            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="-code.svg" />
           </div>
         </div>
 
@@ -220,8 +220,8 @@ export const LandingPage = (): JSX.Element => {
                   Soodo Code · Flowchart editor
                 </span>
               </div>
-              <img
-                src="/image-1.png"
+                <img
+                  src="image-1.png"
                 alt="Soodo Code editor preview"
                 className="w-full h-auto object-cover"
               />
@@ -232,7 +232,7 @@ export const LandingPage = (): JSX.Element => {
 
       <nav className="fixed top-4 left-4 right-4 md:left-8 md:right-auto md:w-auto z-50 bg-[#ffffffcc] rounded-3xl border border-solid border-[#a0a0a08c] shadow-[0px_4px_62.3px_#0000002b] backdrop-blur-[2px]">
         <div className="flex items-center gap-4 md:gap-6 px-4 py-3">
-          <img className="w-10 h-10 md:w-12 md:h-12" alt="Logo" src="/group-29.png" />
+          <img className="w-10 h-10 md:w-12 md:h-12" alt="Logo" src="group-29.png" />
 
           <div className="hidden md:flex items-center gap-6">
             <a href="#about" className="[font-family:'Space_Mono',Helvetica] font-normal text-[#13192ab2] text-lg md:text-xl hover:text-[#13192a] transition-colors">
@@ -254,7 +254,7 @@ export const LandingPage = (): JSX.Element => {
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xs md:text-sm">
               Login
             </span>
-            <img className="w-4 h-4 ml-2" alt="Forward" src="/fi-br-forward.svg" />
+            <img className="w-4 h-4 ml-2" alt="Forward" src="fi-br-forward.svg" />
           </Button>
         </div>
       </nav>
@@ -337,17 +337,17 @@ export const LandingPage = (): JSX.Element => {
       <section id="contact" className="px-4 md:px-8 lg:px-16 py-20 max-w-7xl mx-auto">
         <div className="flex flex-col items-center gap-8">
           <div className="flex flex-col md:flex-row items-center gap-4">
-            <Button onClick={handleTryToday} className="flex items-center gap-3 bg-[#b6ff76] hover:bg-[#a5ee65] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6 h-auto cursor-pointer transition-colors">
+          <Button onClick={handleTryToday} className="flex items-center gap-3 bg-[#b6ff76] hover:bg-[#a5ee65] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6 h-auto cursor-pointer transition-colors">
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-xl md:text-3xl">
               TRY
             </span>
-            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="/fi-br-forward.svg" />
+            <img className="w-6 h-6 md:w-8 md:h-8" alt="Forward" src="fi-br-forward.svg" />
           </Button>
 
             <Arrow direction="down" className="md:hidden" />
 
             <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6">
-              <div className="w-7 h-7 md:w-8 md:h-8 bg-[url(/vector.svg)] bg-[100%_100%]" />
+            <div className="w-7 h-7 md:w-8 md:h-8 bg-[url(vector.svg)] bg-[100%_100%]" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 TODAY.
               </span>
@@ -359,8 +359,8 @@ export const LandingPage = (): JSX.Element => {
           </div>
 
           <div className="flex items-center gap-4">
-            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="/vector-1.svg" />
-            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="/-code.svg" />
+            <img className="w-24 md:w-[138px] h-6 md:h-[33px]" alt="Soodo" src="vector-1.svg" />
+            <img className="w-20 md:w-[104px] h-6 md:h-[33px]" alt="Code" src="-code.svg" />
           </div>
         </div>
       </section>
