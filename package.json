@@ -4,13 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm install --prefer-offline && vite",
-    "build": "pnpm install --prefer-offline && tsc -b && vite build",
-    "build:prod": "pnpm install --prefer-offline && tsc -b && BUILD_MODE=prod vite build",
-    "build:gh-pages": "GITHUB_PAGES=true pnpm run build",
-    "lint": "pnpm install --prefer-offline && eslint .",
-    "preview": "pnpm install --prefer-offline && vite preview",
-    "install-deps": "pnpm install --prefer-offline",
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:prod": "tsc -b && BUILD_MODE=prod vite build",
+    "build:gh-pages": "GITHUB_PAGES=true npm run build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "install-deps": "npm install",
     "clean": "rimraf node_modules dist .pnpm-store"
   },
   "dependencies": {
