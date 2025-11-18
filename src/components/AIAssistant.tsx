@@ -132,13 +132,12 @@ const AIAssistant = ({ isOpen, onClose, nodes = [], connections = [], boardName 
     if (settings.apiProvider === 'openai' && settings.apiKey) {
       try {
         const model = (settings.chatModel && settings.chatModel.toLowerCase().startsWith('gpt')) ? settings.chatModel : 'gpt-4o-mini';
-        const chatMessages = [
+        const chatMessages: any[] = [
           { role: 'system', content: `You are Soodo Code's assistant. Analyze flowcharts (nodes and connections) and help users build programs. When helpful, include a control JSON block wrapped in <soodo>{"tasks": [..], "code": {"filename":"","language":"","code":"..."}}</soodo>. Keep replies concise.` },
           { role: 'system', content: `Flowchart: ${JSON.stringify(flowchartContext)}` },
           // include last few turns
           ...messages.slice(-6).map(m => ({ role: m.type === 'assistant' ? 'assistant' : 'user', content: m.content }))
         ];
-        // latest user with images
         const contentParts: any[] = [{ type: 'text', text: message }];
         for (const img of imagesBase64) contentParts.push({ type: 'input_image', image_url: img });
         chatMessages.push({ role: 'user', content: contentParts });
