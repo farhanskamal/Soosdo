@@ -26,8 +26,10 @@ import App from './App.tsx'
 })()
 
 function Root() {
+  // Ensure routing works both locally ("/") and on GitHub Pages ("/Soosdo/")
+  const basename = import.meta.env.BASE_URL || '/';
   return (
-    <Router>
+    <Router basename={basename}>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/app" element={<App />} />
