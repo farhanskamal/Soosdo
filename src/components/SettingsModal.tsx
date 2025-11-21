@@ -8,16 +8,19 @@ interface SettingsModalProps {
 
 export interface SoodoSettings {
   theme: 'light' | 'dark' | 'system';
-  apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'supabase' | 'custom' | 'none';
+  // High-level mode for the provider UI
+  apiMode?: 'simple' | 'advanced';
+  apiProvider?: 'auto' | 'openai' | 'anthropic' | 'gemini' | 'huggingface' | 'openrouter' | 'supabase' | 'custom' | 'selfhosted' | 'none';
   codeProvider?: 'local' | 'supabase' | 'custom';
   apiKey?: string;
-  chatModel?: string; // gpt-4o-mini, claude-3-5-sonnet-latest
-  customEndpoint?: string; // chat endpoint (used for supabase/custom)
+  chatModel?: string; // provider-specific model id
+  customEndpoint?: string; // chat endpoint (used for supabase/custom/openrouter/selfhosted)
   codeEndpoint?: string;   // flowchart-to-code endpoint
 }
 
 const defaultSettings: SoodoSettings = {
   theme: 'light',
+  apiMode: 'simple',
   apiProvider: 'auto',
   codeProvider: 'local',
   apiKey: '',
@@ -93,18 +96,84 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
           {/* Providers */}
           <section>
-            <div className="flex items-center gap-2 mb-2">
-              <KeyRound size={16} className="text-gray-600" />
-              <span className="text-sm font-medium text-gray-700">Chat Provider</span>
-            </div>
-            <div className="grid grid-cols-7 gap-2 mb-2">
-              {(['auto','none','openai','anthropic','gemini','huggingface','supabase','custom'] as const).map(p => (
-                <button key={p} onClick={() => setSettings(s => ({...s, apiProvider: p}))}
-                  className={`border rounded-lg py-2 text-sm ${settings.apiProvider===p?'border-soodo-cocoa-brown text-soodo-cocoa-brown':'border-gray-300 text-gray-700'} hover:border-soodo-cocoa-brown`}>
-                  {p==='none'?'Disabled':p[0].toUpperCase()+p.slice(1)}
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <KeyRound size={16} className="text-gray-600" />
+                <span className="text-sm font-medium text-gray-700">Chat Provider</span>
+              </div>
+              <div className="flex items-center gap-1 text-[11px] text-gray-500">
+                <span>Mode:</span>
+                <button
+                  onClick={() => setSettings(s => ({ ...s, apiMode: 'simple' }))}
+                  className={`px-2 py-1 rounded-lg border text-xs ${
+                    (settings.apiMode ?? 'simple') === 'simple'
+                      ? 'border-soodo-cocoa-brown text-soodo-cocoa-brown'
+                      : 'border-gray-300 text-gray-600'
+                  }`}
+                >
+                  Simple
                 </button>
-              ))}
+                <button
+                  onClick={() => setSettings(s => ({ ...s, apiMode: 'advanced' }))}
+                  className={`px-2 py-1 rounded-lg border text-xs ${
+                    (settings.apiMode ?? 'simple') === 'advanced'
+                      ? 'border-soodo-cocoa-brown text-soodo-cocoa-brown'
+                      : 'border-gray-300 text-gray-600'
+                  }`}
+                >
+                  Advanced
+                </button>
+              </div>
             </div>
+            {(() => {
+              const mode = settings.apiMode ?? 'simple';
+              const simpleProviders: SoodoSettings['apiProvider'][] = [
+                'none',
+                'openai',
+                'anthropic',
+                'gemini',
+                'huggingface',
+                'openrouter',
+              ];
+              const advancedProviders: SoodoSettings['apiProvider'][] = [
+                'auto',
+                'none',
+                'openai',
+                'anthropic',
+                'gemini',
+                'huggingface',
+                'openrouter',
+                'supabase',
+                'custom',
+                'selfhosted',
+              ];
+              const providerList = mode === 'simple' ? simpleProviders : advancedProviders;
+              return (
+                <div className="grid grid-cols-7 gap-2 mb-2">
+                  {providerList.map(p => (
+                    <button
+                      key={p}
+                      onClick={() => setSettings(s => ({ ...s, apiProvider: p }))}
+                      className={`border rounded-lg py-2 text-xs md:text-sm ${
+                        settings.apiProvider === p
+                          ? 'border-soodo-cocoa-brown text-soodo-cocoa-brown'
+                          : 'border-gray-300 text-gray-700'
+                      } hover:border-soodo-cocoa-brown`}
+                    >
+                      {p === 'none'
+                        ? 'Disabled'
+                        : p === 'openrouter'
+                        ? 'OpenRouter'
+                        : p === 'selfhosted'
+                        ? 'Self-hosted'
+                        : p === 'auto'
+                        ? 'Auto'
+                        : p[0].toUpperCase() + p.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              );
+            })()}
 
             <div className="flex items-center gap-2 mb-2">
               <span className="text-sm font-medium text-gray-700">Code Provider</span>
@@ -120,14 +189,14 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
 
             {/* Shared credentials and endpoints */}
             <div className="space-y-3">
-              <label className="block text-xs text-gray-600">AI API Key (Auto-detect)</label>
+              <label className="block text-xs text-gray-600">AI API Key</label>
               <div className="flex items-center gap-2">
                 <input type={showKey?'text':'password'} value={settings.apiKey||''}
                   onChange={(e)=>setSettings(s=>({...s, apiKey: e.target.value}))}
-                  className="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder="Paste your key (OpenAI/Anthropic)" />
+                  className="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder="Paste API key for selected provider (OpenAI, Anthropic, OpenRouter, etc.)" />
                 <button onClick={()=>setShowKey(v=>!v)} className="text-xs text-gray-600 hover:text-gray-800">{showKey?'Hide':'Show'}</button>
               </div>
-              <div className="text-[11px] text-gray-500">We will auto-detect the provider by key prefix or the endpoint you set below. You can still override by choosing a specific provider.</div>
+              <div className="text-[11px] text-gray-500">Use a single key for the selected provider. In advanced mode you can point to custom endpoints or self-hosted, OpenAI-compatible models.</div>
 
               {settings.apiProvider && settings.apiProvider !== 'none' && (
                 <>
@@ -139,14 +208,20 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ isOpen, onClose }) => {
                         className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder={settings.apiProvider==='openai'?'gpt-4o-mini':settings.apiProvider==='gemini'?'gemini-1.5-flash':settings.apiProvider==='huggingface'?'mistralai/Mixtral-8x7B-Instruct-v0.1':'claude-3-5-sonnet-latest'} />
                     </>
                   )}
-                  {(settings.apiProvider === 'custom' || settings.apiProvider === 'supabase') && (
+                  {(settings.apiProvider === 'custom' || settings.apiProvider === 'supabase' || settings.apiProvider === 'openrouter' || settings.apiProvider === 'selfhosted') && (
                     <>
                       <label className="block text-xs text-gray-600 mt-3">Chat Endpoint ({settings.apiProvider})</label>
                       <div className="flex items-center gap-2">
                         <LinkIcon size={16} className="text-gray-500" />
                         <input type="text" value={settings.customEndpoint||''}
                           onChange={(e)=>setSettings(s=>({...s, customEndpoint: e.target.value}))}
-                          className="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder="https://api.yourservice.com/chat" />
+                          className="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-soodo-cocoa-brown focus:border-transparent" placeholder={
+                            settings.apiProvider === 'openrouter'
+                              ? 'https://openrouter.ai/api/v1'
+                              : settings.apiProvider === 'selfhosted'
+                              ? 'http://localhost:8000/v1'
+                              : 'https://api.yourservice.com/chat'
+                          } />
                       </div>
                     </>
                   )}

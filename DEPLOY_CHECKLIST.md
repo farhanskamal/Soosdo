@@ -14,7 +14,7 @@ Use this checklist to ensure everything is ready:
 - [ ] All connectors function properly
 
 ### Configuration
-- [ ] `vite.config.ts` has `base: isGHPages ? '/Soosdo/' : '/'`
+- [ ] `vite.config.ts` has `base: isGHPages ? '/SoodoCode/' : '/'`
 - [ ] `.gitignore` is properly set up
 - [ ] `.env.example` exists with template variables
 - [ ] `.env.local` is in `.gitignore` (never committed)
@@ -22,7 +22,7 @@ Use this checklist to ensure everything is ready:
 
 ### GitHub Pages Setup
 - [ ] GitHub account created
-- [ ] Repository name will be `Soosdo`
+- [ ] Repository name will be `SoodoCode`
 - [ ] Workflow file exists at `.github/workflows/deploy.yml`
 - [ ] Local git initialized: `git init`
 
@@ -55,7 +55,7 @@ Use this checklist to ensure everything is ready:
 
 ```powershell
 # Navigate to project
-cd C:\Users\Mafius\Desktop\Soosdo
+cd C:\Users\Mafius\Desktop\SoodoCode
 
 # Initialize git
 git init
@@ -72,7 +72,7 @@ git commit -m "Initial commit: Soodo Code application"
 ### 2. Create GitHub Repository
 
 1. Go to https://github.com/new
-2. Repository name: `Soosdo`
+2. Repository name: `SoodoCode`
 3. Description: `Visual flowchart to code generator with AI`
 4. Public: ✅ YES (required for GitHub Pages)
 5. Skip all checkboxes (don't initialize)
@@ -82,7 +82,7 @@ git commit -m "Initial commit: Soodo Code application"
 
 ```powershell
 # Copy these commands from GitHub and run:
-git remote add origin https://github.com/YOUR_USERNAME/Soosdo.git
+git remote add origin https://github.com/YOUR_USERNAME/SoodoCode.git
 git branch -M main
 git push -u origin main
 ```
@@ -104,7 +104,7 @@ git push -u origin main
 
 ### 6. Verify Live Site
 
-Visit: `https://YOUR_USERNAME.github.io/Soosdo/`
+Visit: `https://YOUR_USERNAME.github.io/SoodoCode/`
 
 ---
 
@@ -122,7 +122,7 @@ Visit: `https://YOUR_USERNAME.github.io/Soosdo/`
 - [ ] Responsive on mobile
 
 ### Share Your Site
-- [ ] Copy URL: `https://YOUR_USERNAME.github.io/Soosdo/`
+- [ ] Copy URL: `https://YOUR_USERNAME.github.io/SoodoCode/`
 - [ ] Share on social media
 - [ ] Add to portfolio
 - [ ] Share with team/friends
@@ -152,17 +152,17 @@ Automatic deployment happens! ✨
 | Workflow fails | Check Actions tab → build logs |
 | Routes don't work | Verify `vite.config.ts` base path |
 | Blank page | Check browser console (F12) |
-| Can't find repository | Make sure it's public, named `Soosdo` |
+| Can't find repository | Make sure it's public, named `SoodoCode` |
 | Site looks broken | Clear browser cache, hard refresh (Ctrl+Shift+R) |
 
 ---
 
 ## Important URLs
 
-- **Your Site**: `https://YOUR_USERNAME.github.io/Soosdo/`
-- **Repository**: `https://github.com/YOUR_USERNAME/Soosdo`
-- **Actions**: `https://github.com/YOUR_USERNAME/Soosdo/actions`
-- **Settings**: `https://github.com/YOUR_USERNAME/Soosdo/settings/pages`
+- **Your Site**: `https://YOUR_USERNAME.github.io/SoodoCode/`
+- **Repository**: `https://github.com/YOUR_USERNAME/SoodoCode`
+- **Actions**: `https://github.com/YOUR_USERNAME/SoodoCode/actions`
+- **Settings**: `https://github.com/YOUR_USERNAME/SoodoCode/settings/pages`
 
 ---
 
@@ -173,7 +173,7 @@ Your deployment is successful when:
 ```
 ✅ GitHub Actions shows green checkmark
 ✅ gh-pages branch exists
-✅ Site loads at https://YOUR_USERNAME.github.io/Soosdo/
+✅ Site loads at https://YOUR_USERNAME.github.io/SoodoCode/
 ✅ Landing page displays correctly
 ✅ All features work
 ✅ No console errors

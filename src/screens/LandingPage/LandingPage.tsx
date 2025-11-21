@@ -136,7 +136,7 @@ export const LandingPage = (): JSX.Element => {
             <Arrow direction="right" className="hidden md:block" />
 
             <div className="flex items-center gap-3 bg-[#efff76] rounded-3xl border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-              <div className="w-5 h-6 bg-[url(vector-2.svg)] bg-[100%_100%]" />
+              <img className="w-5 h-6" src="vector-2.svg" alt="Icon" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 SPEAK
               </span>
@@ -166,7 +166,7 @@ export const LandingPage = (): JSX.Element => {
           <Arrow direction="down" />
 
           <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-6 md:px-8 py-3 md:py-4">
-            <div className="w-8 h-8 bg-[url(vector.svg)] bg-[100%_100%]" />
+            <img className="w-8 h-8" src="vector.svg" alt="Monitor" />
             <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
               WANT.
             </span>
@@ -199,7 +199,7 @@ export const LandingPage = (): JSX.Element => {
                 <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-lg md:text-2xl">
                   Try in browser
                 </span>
-                <img className="w-6 h-6 md:w-7 md:h-7" alt="Forward" src="/fi-br-forward.svg" />
+                <img className="w-6 h-6 md:w-7 md:h-7" alt="Forward" src="fi-br-forward.svg" />
               </Button>
               <span className="text-xs md:text-sm text-[#13192ab2] [font-family:'Roboto',Helvetica]">
                 No install. Runs fully in your browser.
@@ -347,7 +347,7 @@ export const LandingPage = (): JSX.Element => {
             <Arrow direction="down" className="md:hidden" />
 
             <div className="flex items-center gap-3 bg-[#ff7676] rounded-full border-4 md:border-[7px] border-[#13192a] px-8 md:px-12 py-4 md:py-6">
-            <div className="w-7 h-7 md:w-8 md:h-8 bg-[url(vector.svg)] bg-[100%_100%]" />
+            <img className="w-7 h-7 md:w-8 md:h-8" src="vector.svg" alt="Monitor" />
               <span className="[font-family:'Space_Mono',Helvetica] font-bold text-[#13192a] text-2xl md:text-4xl">
                 TODAY.
               </span>

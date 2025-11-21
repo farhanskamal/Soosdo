@@ -213,7 +213,7 @@ Automated via `.github/workflows/deploy.yml`:
 
 **Manual deploy**: `GITHUB_PAGES=true pnpm run build` then push `dist/` to `gh-pages` branch.
 
-**Base path**: GitHub repository slug is `/Soosdo/`, but the product name is **Soodo Code**. Update the base path in `vite.config.ts` if you rename the repository.
+**Base path**: GitHub repository slug is `/SoodoCode/`, but the product name is **Soodo Code**. Update the base path in `vite.config.ts` if you rename the repository.
 
 ## Known Limitations
 

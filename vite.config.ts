@@ -20,6 +20,6 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base: isGHPages ? '/Soosdo/' : '/',
+  base: isGHPages ? '/SoodoCode/' : '/',
 })
 

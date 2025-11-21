@@ -5,7 +5,7 @@
 ### Step 1: Create GitHub Personal Access Token
 
 1. Go to https://github.com/settings/tokens/new
-2. **Token name**: `Soosdo Deployment`
+2. **Token name**: `SoodoCode Deployment`
 3. **Expiration**: 90 days (or longer)
 4. **Scopes** - Check these boxes:
    - ✅ `repo` (full control of private repositories)
@@ -22,7 +22,7 @@ Option A - Use Token in URL (One-time):
 git remote remove origin
 
 # Add new remote with token
-git remote add origin https://YOUR_USERNAME:YOUR_TOKEN@github.com/farhanskamal/Soosdo.git
+git remote add origin https://YOUR_USERNAME:YOUR_TOKEN@github.com/farhanskamal/SoodoCode.git
 
 # Push
 git push -u origin main
@@ -75,7 +75,7 @@ This creates keys at:
 
 1. Go to https://github.com/settings/keys
 2. Click **"New SSH key"**
-3. **Title**: `Soosdo Deployment`
+3. **Title**: `SoodoCode Deployment`
 4. **Key type**: Authentication Key
 5. **Key**: Open `id_ed25519.pub` and paste contents
 6. Click **"Add SSH key"**
@@ -87,7 +87,7 @@ This creates keys at:
 git remote remove origin
 
 # Add SSH remote
-git remote add origin git@github.com:farhanskamal/Soosdo.git
+git remote add origin git@github.com:farhanskamal/SoodoCode.git
 
 # Push
 git push -u origin main
@@ -113,7 +113,7 @@ git push -u origin main
 - Not: `YOUR_USERNAME` (placeholder)
 
 **Check 4: Repository Exists?**
-- Go to https://github.com/farhanskamal/Soosdo
+- Go to https://github.com/farhanskamal/SoodoCode
 - Make sure repository is created
 - Make sure it's public (for GitHub Pages)
 
@@ -147,7 +147,7 @@ ssh -T git@github.com
 
 ```powershell
 # Navigate to project
-cd C:\Users\Mafius\Desktop\Soosdo
+cd C:\Users\Mafius\Desktop\SoodoCode
 
 # Check if git is already initialized
 git status
@@ -160,11 +160,11 @@ git add .
 git commit -m "Initial commit: Soodo Code"
 
 # Option 1: Using Personal Access Token
-git remote add origin https://farhanskamal:YOUR_TOKEN@github.com/farhanskamal/Soosdo.git
+git remote add origin https://farhanskamal:YOUR_TOKEN@github.com/farhanskamal/SoodoCode.git
 git push -u origin main
 
 # Option 2: Using SSH
-git remote add origin git@github.com:farhanskamal/Soosdo.git
+git remote add origin git@github.com:farhanskamal/SoodoCode.git
 git push -u origin main
 ```
 
@@ -172,13 +172,13 @@ git push -u origin main
 
 ## Next Steps After Push
 
-1. Go to https://github.com/farhanskamal/Soosdo
+1. Go to https://github.com/farhanskamal/SoodoCode
 2. Verify code is there
 3. Go to **Settings** → **Pages**
 4. Select branch: `gh-pages`
 5. Click Save
 6. Wait 2-3 minutes
-7. Visit your site at: `https://farhanskamal.github.io/Soosdo/`
+7. Visit your site at: `https://farhanskamal.github.io/SoodoCode/`
 
 ---
 

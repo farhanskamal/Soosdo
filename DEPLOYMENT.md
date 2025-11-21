@@ -25,7 +25,7 @@ git add .
 git commit -m "Initial commit: Soodo Code"
 
 # Add remote (replace with your repo URL)
-git remote add origin https://github.com/YOUR_USERNAME/Soosdo.git
+git remote add origin https://github.com/YOUR_USERNAME/SoodoCode.git
 
 # Push to GitHub
 git branch -M main
@@ -54,7 +54,7 @@ The `.github/workflows/deploy.yml` workflow will:
 
 #### 4. Access Your Site
 
-Your app will be available at: `https://YOUR_USERNAME.github.io/Soosdo/`
+Your app will be available at: `https://YOUR_USERNAME.github.io/SoodoCode/`
 
 ### Important Notes
 
@@ -75,7 +75,7 @@ Your app will be available at: `https://YOUR_USERNAME.github.io/Soosdo/`
 React Router works correctly on GitHub Pages because:
 - ✅ The app is a single-page application (SPA)
 - ✅ All routes are handled client-side
-- ✅ Direct URL access works (e.g., `/Soosdo/app`)
+- ✅ Direct URL access works (e.g., `/SoodoCode/app`)
 
 ### Local Development
 
@@ -96,7 +96,7 @@ pnpm run preview
 ### Troubleshooting
 
 **Routes not working after deployment:**
-- The `vite.config.ts` is already configured with the correct base path (`/Soosdo/`)
+- The `vite.config.ts` is already configured with the correct base path (`/SoodoCode/`)
 - Make sure the repository name is correct in the config
 
 **Blank page after deployment:**
@@ -140,5 +140,5 @@ For production, configure your API endpoints:
 
 1. Push code to GitHub
 2. GitHub Actions automatically deploys on push
-3. Access your app at `https://YOUR_USERNAME.github.io/Soosdo/`
+3. Access your app at `https://YOUR_USERNAME.github.io/SoodoCode/`
 4. Share the link with users!

@@ -20,7 +20,7 @@ Your Soodo Code application is now fully configured for GitHub Pages hosting wit
 
 ### 2. **Build Configuration** ✅
 - **Updated**: `vite.config.ts`
-- **Base Path**: Automatically set to `/Soosdo/` when deploying
+- **Base Path**: Automatically set to `/SoodoCode/` when deploying
 - **Environment**: Detects `GITHUB_PAGES=true` flag
 - **Build Scripts**: New `build:gh-pages` command added to `package.json`
 
@@ -50,7 +50,7 @@ Your Soodo Code application is now fully configured for GitHub Pages hosting wit
 ### Step 1: Commit Your Code
 
 ```powershell
-cd C:\Users\Mafius\Desktop\Soosdo
+cd C:\Users\Mafius\Desktop\SoodoCode
 
 # First time setup
 git init
@@ -64,14 +64,14 @@ git commit -m "Initial commit: Soodo Code"
 
 1. Go to [GitHub.com](https://github.com)
 2. Click **"New repository"**
-3. Name: `Soosdo`
+3. Name: `SoodoCode`
 4. Keep it **Public**
 5. **Don't** initialize with README
 
 ### Step 3: Connect & Push
 
 ```powershell
-git remote add origin https://github.com/YOUR_USERNAME/Soosdo.git
+git remote add origin https://github.com/YOUR_USERNAME/SoodoCode.git
 git branch -M main
 git push -u origin main
 ```
@@ -96,7 +96,7 @@ Replace `YOUR_USERNAME` with your actual GitHub username.
 ### Step 6: Access Your Live Site
 
 ```
-https://YOUR_USERNAME.github.io/Soosdo/
+https://YOUR_USERNAME.github.io/SoodoCode/
 ```
 
 Share this URL with the world! 🎉
@@ -128,7 +128,7 @@ No manual deployment needed!
 ## Important Notes
 
 ### Repository Name
-⚠️ **The repository MUST be named `Soosdo`**
+⚠️ **The repository MUST be named `SoodoCode`**
 
 If you use a different name:
 - Update `vite.config.ts` line 23:
@@ -167,7 +167,7 @@ Use GitHub Secrets:
 
 ✅ **Client-side routing works**:
 - All routes handled in the browser
-- Links like `/Soosdo/app` work correctly
+- Links like `/SoodoCode/app` work correctly
 - Direct URL access works
 - No 404.html file needed
 
@@ -176,7 +176,7 @@ Use GitHub Secrets:
 ## Project Structure
 
 ```
-Soosdo/
+SoodoCode/
 ├── .github/workflows/
 │   └── deploy.yml               ← Automatic deployment
 ├── .gitignore                   ← What to exclude from Git
@@ -285,7 +285,7 @@ Your deployment was successful when:
 
 - ✅ GitHub Actions shows green checkmark
 - ✅ `gh-pages` branch created automatically
-- ✅ Site accessible at `https://YOUR_USERNAME.github.io/Soosdo/`
+- ✅ Site accessible at `https://YOUR_USERNAME.github.io/SoodoCode/`
 - ✅ Landing page loads
 - ✅ "Try Today" button navigates to app
 - ✅ All features work
@@ -302,7 +302,7 @@ Your **Soodo Code** application is now:
 
 Share your link:
 ```
-https://YOUR_USERNAME.github.io/Soosdo/
+https://YOUR_USERNAME.github.io/SoodoCode/
 ```
 
 ---

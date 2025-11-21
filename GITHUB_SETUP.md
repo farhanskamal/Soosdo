@@ -17,7 +17,7 @@ git commit -m "Initial commit: Soodo Code application"
 
 1. Go to [GitHub.com](https://github.com) and sign in
 2. Click **"+" icon** → **"New repository"**
-3. Name it: `Soosdo` (keep it public for GitHub Pages)
+3. Name it: `SoodoCode` (keep it public for GitHub Pages)
 4. **Do NOT** initialize with README (we already have one)
 5. Click **"Create repository"**
 
@@ -26,7 +26,7 @@ git commit -m "Initial commit: Soodo Code application"
 Copy the commands from GitHub and run them:
 
 ```powershell
-git remote add origin https://github.com/YOUR_USERNAME/Soosdo.git
+git remote add origin https://github.com/YOUR_USERNAME/SoodoCode.git
 git branch -M main
 git push -u origin main
 ```
@@ -55,7 +55,7 @@ Replace `YOUR_USERNAME` with your GitHub username.
 
 Your app is now live at:
 ```
-https://YOUR_USERNAME.github.io/Soosdo/
+https://YOUR_USERNAME.github.io/SoodoCode/
 ```
 
 Replace `YOUR_USERNAME` with your GitHub username.
@@ -64,7 +64,7 @@ Replace `YOUR_USERNAME` with your GitHub username.
 
 ## Repository Name Note
 
-⚠️ **Important**: If you name your repository something other than `Soosdo`, update `vite.config.ts`:
+⚠️ **Important**: If you name your repository something other than `SoodoCode`, update `vite.config.ts`:
 
 ```typescript
 base: isGHPages ? '/YOUR_REPO_NAME/' : '/',
@@ -122,7 +122,7 @@ Check the browser console (F12):
 
 The app uses React Router. All routes are handled client-side. If you get a 404:
 - Don't add a 404.html file
-- Routes like `/Soosdo/app` should work automatically
+- Routes like `/SoodoCode/app` should work automatically
 
 ### Build Failed in Actions
 
@@ -158,7 +158,7 @@ pnpm run preview
 
 Important files for deployment:
 ```
-Soosdo/
+SoodoCode/
 ├── .github/workflows/
 │   └── deploy.yml           # Automatic deployment config
 ├── .gitignore              # Prevent uploading unnecessary files
@@ -197,7 +197,7 @@ Cannot use `.env` files on GitHub Pages. Solutions:
 ## Next Steps
 
 1. ✅ Follow the Quick Start steps above
-2. ✅ Test your live site at `https://YOUR_USERNAME.github.io/Soosdo/`
+2. ✅ Test your live site at `https://YOUR_USERNAME.github.io/SoodoCode/`
 3. ✅ Share the link with friends!
 
 ## Support
@@ -211,7 +211,7 @@ For React Router issues, see: https://reactrouter.com/start/library/setup
 
 Once deployed, share this URL:
 ```
-https://YOUR_USERNAME.github.io/Soosdo/
+https://YOUR_USERNAME.github.io/SoodoCode/
 ```
 
 🎉 Your Soodo Code app is live on the internet!
