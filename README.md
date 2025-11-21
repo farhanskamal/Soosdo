@@ -145,9 +145,3 @@ For GitHub Pages or static hosting, you typically:
 3. Ensure the `base` path in `vite.config.ts` matches your repository/hosting path.
 
 See `DEPLOYMENT.md`, `HOSTING_SUMMARY.md`, and `.github/workflows/deploy.yml` for more detailed deployment notes.
-
----
-
-## License
-
-Check the repository’s license file for usage terms. If none is present yet, treat this as a private project until a license is added.
