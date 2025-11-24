@@ -95,7 +95,7 @@ Settings are stored in `localStorage` under the key `soodo-settings` and can be 
 
 In the Settings modal you can configure:
 
-- **Theme**: `light`, `dark`, or `system`
+- **Theme (NOT WORKING)**: `light`, `dark`, or `system`
 - **Chat provider**:
   - `auto` (detect from API key/endpoint)
   - `openai`, `anthropic`, `gemini`, `huggingface`, `supabase`, `custom`, or `none`
